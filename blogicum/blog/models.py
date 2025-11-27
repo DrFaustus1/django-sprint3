@@ -5,36 +5,38 @@ User = get_user_model()
 
 class Category(models.Model):
     title = models.CharField(
-        max_length=256, 
+        max_length=256,
         blank=False,
         verbose_name='Заголовок'
     )
     description = models.TextField(
-        blank=False, 
+        blank=False,
         verbose_name='Описание'
     )
     slug = models.SlugField(
-        unique=True, 
+        unique=True,
         blank=False,
         verbose_name='Идентификатор',
-        help_text='Идентификатор страницы для URL; разрешены символы латиницы, цифры, дефис и подчёркивание.'
+        help_text=(
+        'Идентификатор страницы для URL; разрешены символы латиницы, '
+        'цифры, дефис и подчёркивание.'
+    )
     )
     is_published = models.BooleanField(
-        default=True, 
+        default=True,
         blank=False,
         verbose_name='Опубликовано',
         help_text='Снимите галочку, чтобы скрыть публикацию.'
     )
     created_at = models.DateTimeField(
-        blank=False, 
+        blank=False,
         auto_now_add=True,
         verbose_name='Добавлено'
     )
 
-
     class Meta:
         verbose_name = 'категория'
-        verbose_name_plural = 'Категории' 
+        verbose_name_plural = 'Категории'
 
     def __str__(self):
         return self.title
@@ -42,22 +44,21 @@ class Category(models.Model):
 
 class Location(models.Model):
     name = models.CharField(
-        max_length=256, 
+        max_length=256,
         blank=False,
         verbose_name='Название места'
     )
     is_published = models.BooleanField(
-        default=True, 
+        default=True,
         blank=False,
         verbose_name='Опубликовано',
         help_text='Снимите галочку, чтобы скрыть публикацию.'
     )
     created_at = models.DateTimeField(
-        blank=False, 
+        blank=False,
         auto_now_add=True,
         verbose_name='Добавлено'
     )
-
 
     class Meta:
         verbose_name = 'местоположение'
@@ -80,7 +81,10 @@ class Post(models.Model):
     pub_date = models.DateTimeField(
         blank=False,
         verbose_name='Дата и время публикации',
-        help_text='Если установить дату и время в будущем — можно делать отложенные публикации.'
+        help_text=(
+            'Если установить дату и время в будущем'
+            ' — можно делать отложенные публикации.'
+        )
     )
     author = models.ForeignKey(
         User,
@@ -107,17 +111,15 @@ class Post(models.Model):
         verbose_name='Опубликовано',
         help_text='Снимите галочку, чтобы скрыть публикацию.'
     )
-    #автообновление под вопросом
     created_at = models.DateTimeField(
-        blank=False, 
+        blank=False,
         auto_now_add=True,
         verbose_name='Добавлено'
     )
 
-
     class Meta:
         verbose_name = 'публикация'
         verbose_name_plural = 'Публикации'
-    
+
     def __str__(self):
         return self.title

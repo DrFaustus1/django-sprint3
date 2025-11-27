@@ -1,10 +1,9 @@
 from django.utils import timezone
-
 from django.shortcuts import render, get_object_or_404
-from django.http import Http404
 from django.db.models import Q
 
 from blog.models import Post, Category
+
 
 def index(request):
     template_name = 'blog/index.html'
@@ -14,7 +13,7 @@ def index(request):
         'location'
     ).filter(
         Q(is_published=True)
-        & Q(category__is_published = True)
+        & Q(category__is_published=True)
         & Q(pub_date__lte=timezone.now())
     ).order_by(
         '-pub_date'
@@ -46,8 +45,8 @@ def post_detail(request, id):
 def category_posts(request, category_slug):
     template_name = 'blog/category.html'
     category = get_object_or_404(
-        Category, 
-        slug=category_slug, 
+        Category,
+        slug=category_slug,
         is_published=True,
     )
     post_list = Post.objects.select_related(
@@ -55,8 +54,8 @@ def category_posts(request, category_slug):
         'category',
         'location'
     ).filter(
-        Q(is_published=True) &
-        Q(category = category)
+        Q(is_published=True)
+        & Q(category=category)
         & Q(pub_date__lte=timezone.now())
     )
     context = {
