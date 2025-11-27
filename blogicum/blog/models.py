@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+
 class Category(models.Model):
     title = models.CharField(
         max_length=256,
@@ -18,9 +19,9 @@ class Category(models.Model):
         blank=False,
         verbose_name='Идентификатор',
         help_text=(
-        'Идентификатор страницы для URL; разрешены символы латиницы, '
-        'цифры, дефис и подчёркивание.'
-    )
+            'Идентификатор страницы для URL; разрешены символы латиницы, '
+            'цифры, дефис и подчёркивание.'
+        )
     )
     is_published = models.BooleanField(
         default=True,
@@ -70,7 +71,7 @@ class Location(models.Model):
 
 class Post(models.Model):
     title = models.CharField(
-        max_length=256, 
+        max_length=256,
         blank=False,
         verbose_name='Заголовок'
     )
