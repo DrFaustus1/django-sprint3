@@ -4,6 +4,8 @@ from django.shortcuts import render, get_object_or_404
 from blog.models import Post, Category
 
 POSTS_LIMIT = 5
+
+
 def index(request):
     template_name = 'blog/index.html'
     posts = Post.objects.select_related(
